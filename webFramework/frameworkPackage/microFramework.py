@@ -1,6 +1,9 @@
 from werkzeug.wrappers import Request,Response
 from werkzeug.local import LocalStack,LocalProxy
 
+class CusResponse(Response):
+    default_mimetype = 'text/html'
+
 class framework(object):
 
     def __init__(self,package_name):
@@ -12,9 +15,8 @@ class framework(object):
 
     def wsgi_app(self,environ,start_response):
         request = Request(environ)
-        text = 'hello world'
-        response = Response(text, mimetype='text/plain')
-        return response
+        response = CusResponse('hello world \n')
+        return response(environ,start_response)
 
     def __call__(self, environ,start_response):
         return self.wsgi_app(environ,start_response)
