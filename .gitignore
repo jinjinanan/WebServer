@@ -105,3 +105,10 @@ venv.bak/
 
 #mac
 *.DS_Store
+
+#vscode
+.vscode/
+
+#ide
+.idea/
+.idea/workspace.xml
