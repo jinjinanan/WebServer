@@ -6,5 +6,5 @@ app = framework(__name__)
 if __name__ == '__main__':
     # a = sys.path
     # print(a)
-    app.run()
+    app.run(debug=True)
 

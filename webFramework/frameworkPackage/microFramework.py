@@ -8,9 +8,14 @@ class framework(object):
 
     def __init__(self,package_name):
         self.package_name = package_name
+        self.debug = False
 
     def run(self,host='localhost', port=5000, **options):
         from werkzeug import run_simple
+        if 'debug' in options:
+            self.debug = options.pop('debug')
+        options.setdefault('use_reloader', self.debug)
+        options.setdefault('use_debugger', self.debug)
         return run_simple(host,port,self,options)
 
     def wsgi_app(self,environ,start_response):
