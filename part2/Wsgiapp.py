@@ -1,7 +1,7 @@
 def app(environ, start_response):
     """A barebones WSGI application.
 
-    This is a starting point for your own Web framework :)
+    This is a starting point for your own Web frameworkPackage :)
     """
     status = '200 OK'
     response_headers = [('Content-Type', 'text/plain')]

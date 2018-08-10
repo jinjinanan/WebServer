@@ -1,0 +1,10 @@
+import sys
+from frameworkPackage.microFramework import framework
+
+app = framework(__name__)
+
+if __name__ == '__main__':
+    # a = sys.path
+    # print(a)
+    app.run()
+

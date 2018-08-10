@@ -1,4 +1,4 @@
-# Tested with Python 2.7.9, Linux & Mac OS X
+
 import socket
 from io import StringIO,BytesIO
 import sys
@@ -25,7 +25,7 @@ class WSGIServer(object):
         host, port = self.listen_socket.getsockname()[:2]
         self.server_name = socket.getfqdn(host)
         self.server_port = port
-        # Return headers set by Web framework/Web application
+        # Return headers set by Web frameworkPackage/Web application
         self.headers_set = []
 
     def set_app(self, application):
