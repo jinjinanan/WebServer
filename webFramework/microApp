@@ -3,6 +3,14 @@ from frameworkPackage.microFramework import framework
 
 app = framework(__name__)
 
+@app.route('/')
+def index():
+    return 'hello world /'
+
+@app.route('/a')
+def index():
+    return 'hello world /a'
+
 if __name__ == '__main__':
     # a = sys.path
     # print(a)
