@@ -3,6 +3,7 @@ from werkzeug.wrappers import Request,Response
 from werkzeug.routing import Map, Rule
 from werkzeug.local import LocalStack,LocalProxy
 from werkzeug.contrib.securecookie import SecureCookie
+from werkzeug.exceptions import HTTPException
 from six import string_types
 import threading
 class CusRequest(Request):
@@ -61,11 +62,15 @@ class framework(object):
 
     #  处理请求
     def match_request(self):
-        rv = _request_ctx_stack.top.url_adapter.match()
-        request.endpoint,request.view_args = rv # ('index', {})
-        import pdb
-        pdb.set_trace()
-        return rv
+        try:
+            rv = _request_ctx_stack.top.url_adapter.match()
+            request.endpoint, request.view_args = rv  # ('index', {})
+            return rv
+        except HTTPException:
+            print('1')
+        except Exception:
+            print('2')
+
 
     def dispatch_request(self):
         endpoints,values = self.match_request()
@@ -93,18 +98,10 @@ class framework(object):
         :return:
         实际的标准wsgi客户端函数
         """
-        # request = Request(environ)
-        # response = CusResponse('hello world \n')
-
         _request_ctx_stack.push(_RequestContext(self, environ))
         try:
             rv = self.dispatch_request()
             response = self.make_response(rv)
-            # response = self.process_response(response)
-            # return response
-
-            # response = CusResponse('hello world \n')
-            # return response(environ, start_response)
             return response(environ,start_response)
         finally:
             _request_ctx_stack.pop()
